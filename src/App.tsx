@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { SearchBar } from "./components/SearchBar";
+import { WordComp } from "./components/WordComp";
+import { HeaderComp } from "./components/HeaderComp";
 
 function App() {
 	const [word, setWord] = useState("");
-	const [wordInfo, setWordInfo] = useState({});
+	const [wordInfo, setWordInfo] = useState<Word>({
+		word: "",
+		license: {},
+		meanings: [],
+		phonetics: [],
+		sourceUrls: [],
+	});
 
 	useEffect(() => {
 		if (word) {
@@ -14,18 +21,18 @@ function App() {
 				);
 
 				const data = await resp.json();
-				console.log(data);
-				setWordInfo([...data]);
+				setWordInfo(data[0]);
+				console.log("RESPONSE WORDINFO", data[0]);
 			};
 
 			getWord();
-			console.log(wordInfo);
 		}
 	}, [word]);
+
 	return (
-		<div>
-			<h3>Dictionary</h3>
-			<SearchBar setWord={setWord} />
+		<div className="App">
+			<HeaderComp setWord={setWord} />
+			{wordInfo.word && <WordComp wordInfo={wordInfo} />}
 		</div>
 	);
 }

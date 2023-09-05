@@ -1,0 +1,12 @@
+.main-container {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 100px;
+	box-shadow: 0px 2px grey;
+}
+
+.title {
+	left: 10px;
+	color: blue;
+}

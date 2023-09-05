@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import styles from "./SearchBar.module.css";
 
 interface words {
 	setWord: Dispatch<SetStateAction<string>>;
@@ -10,6 +11,7 @@ export const SearchBar = ({ setWord }: words) => {
 	return (
 		<div>
 			<input
+				style={styles}
 				placeholder="Search a word..."
 				type="text"
 				onChange={(e) => setSearchWord(e.target.value)}

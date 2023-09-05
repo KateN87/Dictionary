@@ -1,0 +1,20 @@
+input[type="text"] {
+	width: 30em;
+	height: 50px;
+	border: 2px solid darkgrey;
+	outline: none;
+	border-radius: 15px 0px 0px 15px;
+	font-size: 18px;
+	box-sizing: border-box;
+	padding: 0px 15px;
+}
+
+input[type="submit"] {
+	height: 50px;
+	width: 5em;
+	border: 2px solid darkgrey;
+	border-left: none;
+	border-radius: 0px 15px 15px 0px;
+	cursor: pointer;
+	font-size: 18px;
+}
