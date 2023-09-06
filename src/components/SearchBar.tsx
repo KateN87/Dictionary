@@ -9,7 +9,7 @@ export const SearchBar = ({ setWord }: words) => {
 	const [searchWord, setSearchWord] = useState("");
 
 	return (
-		<div>
+		<div className={styles["search-container"]}>
 			<input
 				style={styles}
 				placeholder="Search a word..."

@@ -6,7 +6,20 @@
 	box-shadow: 0px 2px grey;
 }
 
+.logo-title-container {
+	display: inline-flex;
+	width: 30%;
+	align-items: center;
+}
+
 .title {
-	left: 10px;
-	color: blue;
+	color: grey;
+	font-size: 32px;
+}
+
+.book-icon {
+	width: 80px;
+	height: 50px;
+	filter: opacity(0.4) drop-shadow(0 0 0 grey);
+	margin-right: 20px;
 }

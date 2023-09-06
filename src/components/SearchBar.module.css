@@ -1,3 +1,7 @@
+.search-container {
+	margin-right: 2em;
+}
+
 input[type="text"] {
 	width: 30em;
 	height: 50px;
