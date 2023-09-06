@@ -11,6 +11,7 @@ input[type="text"] {
 	font-size: 18px;
 	box-sizing: border-box;
 	padding: 0px 15px;
+	color: rgb(83, 82, 82);
 }
 
 input[type="submit"] {

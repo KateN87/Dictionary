@@ -3,3 +3,16 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 }
+
+.body-container {
+	display: flex;
+	width: 100%;
+}
+
+.word-list-container {
+	flex: 1;
+}
+
+.word-comp-container {
+	flex: 3;
+}

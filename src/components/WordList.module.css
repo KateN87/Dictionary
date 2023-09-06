@@ -1,0 +1,15 @@
+.main-container {
+	flex: 1;
+	border: 2px solid red;
+}
+
+.word-list {
+	list-style-type: none;
+	font-size: 24px;
+}
+
+h3 {
+	font-size: 30px;
+	color: #f39237;
+	margin-left: 1em;
+}

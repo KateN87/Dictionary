@@ -1,10 +1,13 @@
+//styles
+import styles from "./WordList.module.css";
+
 interface IWord {
 	wordInfo: Word;
 }
 
 export const WordComp = ({ wordInfo }: IWord) => {
 	return (
-		<div>
+		<div className={styles["main-container"]}>
 			<p>Word: {wordInfo.word}</p>
 			<p>phonetic: </p>
 			<ul>
