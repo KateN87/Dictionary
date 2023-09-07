@@ -11,7 +11,7 @@ export const SearchBar = ({ setWord }: words) => {
 	return (
 		<div className={styles["search-container"]}>
 			<input
-				style={styles}
+				className={styles["search-input"]}
 				placeholder="Search a word..."
 				type="text"
 				onChange={(e) => setSearchWord(e.target.value)}

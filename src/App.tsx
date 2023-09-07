@@ -6,13 +6,8 @@ import { WordList } from "./components/WordList";
 
 function App() {
 	const [word, setWord] = useState("");
-	const [wordInfo, setWordInfo] = useState<Word>({
-		word: "",
-		license: {},
-		meanings: [],
-		phonetics: [],
-		sourceUrls: [],
-	});
+	const [wordInfo, setWordInfo] = useState<Word[]>([]);
+	const [wordList, setWordList] = useState<string[]>([]);
 
 	useEffect(() => {
 		if (word) {
@@ -22,8 +17,8 @@ function App() {
 				);
 
 				const data = await resp.json();
-				setWordInfo(data[0]);
-				console.log("RESPONSE WORDINFO", data[0]);
+				setWordInfo(data);
+				console.log("RESPONSE WORDINFO", data);
 			};
 
 			getWord();
@@ -35,10 +30,15 @@ function App() {
 			<HeaderComp setWord={setWord} />
 			<div className="body-container">
 				<div className="word-list-container">
-					<WordList /* wordInfo={wordInfo} */ />
+					<WordList wordList={wordList} />
 				</div>
 				<div className="word-comp-container">
-					{wordInfo.word && <WordComp wordInfo={wordInfo} />}
+					{wordInfo && (
+						<WordComp
+							wordInfo={wordInfo}
+							setWordList={setWordList}
+						/>
+					)}
 				</div>
 			</div>
 		</div>
