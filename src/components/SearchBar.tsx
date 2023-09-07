@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import styles from "./SearchBar.module.css";
 
-interface words {
-	setWord: Dispatch<SetStateAction<string>>;
+interface IFunction {
+	handleSearch: (sWord: string) => Promise<void>;
 }
 
-export const SearchBar = ({ setWord }: words) => {
+export const SearchBar = ({ handleSearch }: IFunction) => {
 	const [searchWord, setSearchWord] = useState("");
 
 	return (
@@ -19,7 +19,7 @@ export const SearchBar = ({ setWord }: words) => {
 			<input
 				className={styles["submit-btn"]}
 				type="submit"
-				onClick={() => setWord(searchWord)}
+				onClick={() => handleSearch(searchWord)}
 			/>
 		</div>
 	);

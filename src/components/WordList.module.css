@@ -5,9 +5,10 @@
 .word-list {
 	list-style-type: none;
 	font-size: 24px;
+	cursor: pointer;
 }
 
-h3 {
+.title {
 	font-size: 30px;
 	color: #f39237;
 	margin-left: 1em;

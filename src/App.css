@@ -2,6 +2,7 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	color: rgb(83, 82, 82);
 }
 
 .body-container {
@@ -15,4 +16,35 @@ body {
 
 .word-comp-container {
 	flex: 3;
+}
+
+.word-container {
+	display: flex;
+	align-items: center;
+	height: 40px;
+	margin-left: 20px;
+}
+
+h3 {
+	color: grey;
+}
+
+.word {
+	font-size: 30px;
+	color: #f39237;
+	margin: 0px 8px;
+}
+
+.word-container > button {
+	height: 30px;
+	border: 2px solid darkgrey;
+	border-radius: 15px;
+	cursor: pointer;
+	font-size: 12px;
+}
+
+.save-icon {
+	font-size: 25px;
+	margin: 0 10px;
+	cursor: pointer;
 }
