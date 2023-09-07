@@ -16,7 +16,11 @@ export const SearchBar = ({ setWord }: words) => {
 				type="text"
 				onChange={(e) => setSearchWord(e.target.value)}
 			/>
-			<input type="submit" onClick={() => setWord(searchWord)} />
+			<input
+				className={styles["submit-btn"]}
+				type="submit"
+				onClick={() => setWord(searchWord)}
+			/>
 		</div>
 	);
 };

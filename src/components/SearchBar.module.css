@@ -1,9 +1,13 @@
 .search-container {
-	margin-right: 2em;
+	display: flex;
+	flex: 2;
+	justify-content: center;
 }
 
-input[type="text"] {
-	width: 30em;
+.search-input {
+	width: 50%;
+	max-width: 30em;
+	min-width: 10em;
 	height: 50px;
 	border: 2px solid darkgrey;
 	outline: none;
@@ -14,7 +18,7 @@ input[type="text"] {
 	color: rgb(83, 82, 82);
 }
 
-input[type="submit"] {
+.submit-btn {
 	height: 50px;
 	width: 5em;
 	border: 2px solid darkgrey;
