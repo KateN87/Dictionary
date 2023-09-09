@@ -1,49 +1,69 @@
 import { useState } from 'react';
 import './App.css';
-import { WordComp } from './components/WordComp';
+import { WordListComp } from './components/WordListComp';
 import { HeaderComp } from './components/HeaderComp';
-import { WordList } from './components/WordList';
+import { MyWordsList } from './components/MyWordsList';
 import { IoSaveSharp } from 'react-icons/io5';
 
 function App() {
-	const [word, setWord] = useState('');
-	const [wordInfo, setWordInfo] = useState<Word[]>([]);
-	const [wordList, setWordList] = useState<string[]>([]);
+	const [foundWord, setFoundWord] = useState('');
+	const [wordList, setWordList] = useState<Word[]>([]);
+	const [myWords, setMyWords] = useState<Word[][]>([]);
 
-	const handleSearch = async (sWord: string) => {
-		const resp = await fetch(
-			`https://api.dictionaryapi.dev/api/v2/entries/en/${sWord}`
-		);
+	const handleSearch = async (
+		sWord: string
+	): Promise<string | boolean | undefined> => {
+		try {
+			const resp = await fetch(
+				`https://api.dictionaryapi.dev/api/v2/entries/en/${sWord}`
+			);
 
-		const data = await resp.json();
-		setWord(sWord);
-		setWordInfo(data);
-		console.log('RESPONSE WORDINFO', data);
+			if (resp.status === 200) {
+				const data = await resp.json();
+				setFoundWord(sWord);
+				setWordList(data);
+
+				return true;
+			} else if (resp.status === 404) {
+				throw new Error(
+					'Sorry, we couldn`t find the word you searched for :('
+				);
+			} else {
+				throw new Error('Failed to fetch data from the API.');
+			}
+		} catch (err) {
+			if (err instanceof Error) {
+				return err.message;
+			}
+		}
 	};
 
 	return (
 		<div className='App'>
 			<HeaderComp handleSearch={handleSearch} />
 			<div className='body-container'>
-				<div className='word-list-container'>
-					<WordList wordList={wordList} handleSearch={handleSearch} />
+				<div className='myword-container'>
+					<MyWordsList myWords={myWords} setWordList={setWordList} />
 				</div>
-				<div className='word-comp-container'>
-					{wordInfo.length > 0 && (
+				<div className='wordlist-container'>
+					{wordList.length > 0 && (
 						<>
 							<div className='word-container'>
 								<h3>
 									Searched Word:{' '}
-									<span className='word'>{word}</span>
+									<span className='word'>{foundWord}</span>
 								</h3>
 								<IoSaveSharp
 									className='save-icon'
 									onClick={() =>
-										setWordList((prev) => [...prev, word])
+										setMyWords((prev) => [
+											...prev,
+											wordList,
+										])
 									}
 								/>
 							</div>
-							<WordComp wordInfo={wordInfo} />
+							<WordListComp wordList={wordList} />
 						</>
 					)}
 				</div>

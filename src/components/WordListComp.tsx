@@ -1,14 +1,14 @@
 //styles
-import styles from './WordComp.module.css';
+import styles from './WordListComp.module.css';
 
 interface IWord {
-	wordInfo: Word[];
+	wordList: Word[];
 }
 
-export const WordComp = ({ wordInfo }: IWord) => {
+export const WordListComp = ({ wordList }: IWord) => {
 	return (
-		<div className={styles['main-container']}>
-			{wordInfo.map((w, idx) => (
+		<div>
+			{wordList.map((w, idx) => (
 				<div key={idx} className={styles['word-container']}>
 					<p>Word: {w.word}</p>
 					{w.phonetics.map((p, idx) => {

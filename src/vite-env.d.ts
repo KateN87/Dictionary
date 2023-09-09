@@ -34,3 +34,29 @@ type Definitions = {
 	definition: string;
 	synonyms: string[];
 };
+
+/* MyWords[
+	WordInfo[
+		wordobjekt{
+			word: cat,
+			phonetics: blabla
+		}
+	,
+		{
+			word: cat,
+			phonetics: blabla
+		}
+	,
+	
+		{
+			word: cat,
+			phonetics: blabla
+		}
+	],
+	WordInfo[
+		wordobjekt{
+			word: dog,
+			phonetics: blabla
+		}
+	]
+] */

@@ -5,7 +5,7 @@ import book from '../assets/book-icon.png';
 import styles from './HeaderComp.module.css';
 
 interface IFunction {
-	handleSearch: (sWord: string) => Promise<void>;
+	handleSearch: (sWord: string) => Promise<string | boolean | undefined>;
 }
 
 export const HeaderComp = ({ handleSearch }: IFunction) => {

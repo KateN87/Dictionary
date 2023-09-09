@@ -10,19 +10,19 @@ body {
 	width: 100%;
 }
 
-.word-list-container {
-	flex: 1;
-}
-
-.word-comp-container {
-	flex: 3;
-}
-
 .word-container {
 	display: flex;
 	align-items: center;
-	height: 40px;
+	height: 60px;
 	margin-left: 20px;
+}
+
+.wordlist-container {
+	flex: 2;
+}
+
+.myword-container {
+	flex: 1;
 }
 
 h3 {
@@ -33,14 +33,6 @@ h3 {
 	font-size: 30px;
 	color: #f39237;
 	margin: 0px 8px;
-}
-
-.word-container > button {
-	height: 30px;
-	border: 2px solid darkgrey;
-	border-radius: 15px;
-	cursor: pointer;
-	font-size: 12px;
 }
 
 .save-icon {
