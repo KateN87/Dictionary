@@ -10,19 +10,19 @@
 	max-width: 30em;
 	min-width: 10em;
 	height: 50px;
-	border: 2px solid darkgrey;
+	border: 2px solid var(--middle-grey);
 	outline: none;
 	border-radius: 15px 0px 0px 15px;
 	font-size: 18px;
 	box-sizing: border-box;
 	padding: 0px 15px;
-	color: rgb(83, 82, 82);
+	color: var(--dark-grey);
 }
 
 .submit-btn {
 	height: 50px;
 	width: 5em;
-	border: 2px solid darkgrey;
+	border: 2px solid var(--middle-grey);
 	border-left: none;
 	border-radius: 0px 15px 15px 0px;
 	cursor: pointer;
@@ -32,9 +32,9 @@
 .error-container {
 	display: flex;
 	align-items: center;
-	border: 2px solid #d01c71;
+	border: 2px solid var(--error-border);
 	border-radius: 5px;
-	background-color: #f9e7f1;
+	background-color: var(--error-background);
 	max-width: fit-content;
 	height: 40px;
 	margin-top: 5px;
@@ -43,6 +43,6 @@
 
 .error-text {
 	font-size: 16px;
-	color: #a82564;
+	color: var(--error-text);
 	padding: 5px;
 }

@@ -1,4 +1,10 @@
 .word-container {
 	border: 2px solid grey;
 	margin: 1em;
+	max-width: 800px;
+	padding: 0 10px;
+}
+
+.phonetics-container {
+	display: inline-flex;
 }

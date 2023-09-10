@@ -1,8 +1,8 @@
-body {
+.app {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	color: rgb(83, 82, 82);
+	color: var(--dark-grey);
 }
 
 .body-container {
@@ -26,13 +26,13 @@ body {
 }
 
 h3 {
-	color: grey;
+	color: var(--dark-grey);
 }
 
 .word {
 	font-size: 30px;
-	color: #f39237;
-	margin: 0px 8px;
+	color: var(--accent-orange);
+	margin: 0 8px;
 }
 
 .save-icon {

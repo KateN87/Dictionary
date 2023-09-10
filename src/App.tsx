@@ -39,7 +39,7 @@ function App() {
 	};
 
 	return (
-		<div className='App'>
+		<div className='app'>
 			<HeaderComp handleSearch={handleSearch} />
 			<div className='body-container'>
 				<div className='myword-container'>

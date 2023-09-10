@@ -24,7 +24,7 @@ type License = {
 
 type Meanings = {
 	antonyms: string[];
-	definition: Definitions[];
+	definitions: Definitions[];
 	partOfSpeech: string;
 	synonyms: string[];
 };
@@ -33,30 +33,5 @@ type Definitions = {
 	antonyms: string[];
 	definition: string;
 	synonyms: string[];
+	example?: string;
 };
-
-/* MyWords[
-	WordInfo[
-		wordobjekt{
-			word: cat,
-			phonetics: blabla
-		}
-	,
-		{
-			word: cat,
-			phonetics: blabla
-		}
-	,
-	
-		{
-			word: cat,
-			phonetics: blabla
-		}
-	],
-	WordInfo[
-		wordobjekt{
-			word: dog,
-			phonetics: blabla
-		}
-	]
-] */

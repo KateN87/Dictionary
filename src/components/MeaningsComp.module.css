@@ -1,0 +1,30 @@
+.title-def-container {
+	display: inline-flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.icon-caret {
+	margin-left: 5px;
+}
+
+.show-more-less {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.def-list {
+	margin-left: 10px;
+	list-style: none;
+	margin-top: 0;
+}
+
+.def-list > li {
+	background-image: url('../assets/book-icon.png');
+	background-position-y: 5px;
+	background-size: 16px 16px;
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	margin-bottom: 10px;
+}

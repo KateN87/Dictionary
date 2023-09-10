@@ -6,6 +6,6 @@
 
 .title {
 	font-size: 30px;
-	color: #f39237;
+	color: var(--accent-orange);
 	margin-left: 1em;
 }

@@ -1,4 +1,6 @@
 //styles
+import { MeaningsComp } from './MeaningsComp';
+import { PhoneticsComp } from './PhoneticsComp';
 import styles from './WordListComp.module.css';
 
 interface IWord {
@@ -10,30 +12,36 @@ export const WordListComp = ({ wordList }: IWord) => {
 		<div>
 			{wordList.map((w, idx) => (
 				<div key={idx} className={styles['word-container']}>
-					<p>Word: {w.word}</p>
-					{w.phonetics.map((p, idx) => {
-						if (p.audio !== '') {
-							return (
-								<audio controls key={idx} src={p.audio}>
-									Your webpage doesn't support audio
-								</audio>
-							);
-						}
-					})}
+					<p>
+						Word: {w.word} {w.phonetic}
+					</p>
+					{w.phonetics.length > 0 && (
+						<div className={styles['phonetics-container']}>
+							<p>Listen: </p>
+							{w.phonetics.map((p, idx) => {
+								if (p.audio !== '') {
+									return (
+										<PhoneticsComp
+											phonetic={p}
+											idx={idx}
+											key={idx}
+										/>
+									);
+								}
+							})}
+						</div>
+					)}
 
-					<p>phonetic: {w.phonetic}</p>
-
-					{w.phonetics.map((p, idx) => (
-						<p key={idx}>phonetic-list: {p.text}</p>
-					))}
 					{w.origin && <p>origin: {w.origin}</p>}
-					{w.meanings.map((m, idx) => (
-						<p key={idx}>meanings: {m.partOfSpeech}</p>
+					{w.meanings?.map((meaning, idx) => (
+						<MeaningsComp meaning={meaning} key={idx} />
 					))}
-					<p>License: {w.license.name}</p>
+					<p>
+						License: <a href={w.license.url}>{w.license.name}</a>
+					</p>
 					{w.sourceUrls.map((s, idx) => (
 						<p key={idx}>
-							Source-url:{' '}
+							Source:{' '}
 							<a href={s} target='_blank'>
 								{s}
 							</a>
