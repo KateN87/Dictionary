@@ -5,10 +5,10 @@ import book from '../assets/book-icon.png';
 import styles from './HeaderComp.module.css';
 
 interface IFunction {
-	handleSearch: (sWord: string) => Promise<string | boolean | undefined>;
+	getWords: (sWord: string) => Promise<string | boolean | undefined>;
 }
 
-export const HeaderComp = ({ handleSearch }: IFunction) => {
+export const HeaderComp = ({ getWords }: IFunction) => {
 	return (
 		<div className={styles['main-container']}>
 			<div className={styles['logo-title-container']}>
@@ -19,7 +19,7 @@ export const HeaderComp = ({ handleSearch }: IFunction) => {
 				/>
 				<h3 className={styles['title']}>My Dictionary</h3>
 			</div>
-			<SearchBar handleSearch={handleSearch} />
+			<SearchBar getWords={getWords} />
 		</div>
 	);
 };

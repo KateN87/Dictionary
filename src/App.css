@@ -1,8 +1,36 @@
-.app {
+body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	color: var(--dark-grey);
+}
+
+.app {
+	min-height: 100vh;
+}
+
+.dark {
+	--grey100: #c3c3c3;
+	--grey200: #5c5c5c;
+	--accent-orange: #f39237;
+	--error-background: #f9e7f1;
+	--error-text: #a82564;
+	--error-border: #d01c71;
+
+	background-color: #5c5c5c;
+	color: #c3c3c3;
+	transition: 0.3s linear;
+}
+
+.light {
+	--grey100: #5c5c5c;
+	--grey200: #c3c3c3;
+	--accent-orange: #f39237;
+	--error-background: #f9e7f1;
+	--error-text: #a82564;
+	--error-border: #d01c71;
+
+	background-color: white;
+	transition: 0.3s linear;
 }
 
 .body-container {
@@ -25,10 +53,6 @@
 	flex: 1;
 }
 
-h3 {
-	color: var(--dark-grey);
-}
-
 .word {
 	font-size: 30px;
 	color: var(--accent-orange);
@@ -39,4 +63,12 @@ h3 {
 	font-size: 25px;
 	margin: 0 10px;
 	cursor: pointer;
+}
+
+.theme-toggle {
+	font-size: 20px;
+	margin: 10px;
+	color: var(--accent-orange);
+	position: absolute;
+	right: 0;
 }

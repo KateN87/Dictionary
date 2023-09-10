@@ -1,5 +1,5 @@
 .word-container {
-	border: 2px solid grey;
+	border: 2px solid var(--grey100);
 	margin: 1em;
 	max-width: 800px;
 	padding: 0 10px;

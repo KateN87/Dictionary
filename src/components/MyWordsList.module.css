@@ -9,3 +9,12 @@
 	color: var(--accent-orange);
 	margin-left: 1em;
 }
+
+.word-list > li {
+	background-image: url('../assets/book-icon.png');
+	background-position-y: 8px;
+	background-size: 18px 18px;
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	margin-top: 10px;
+}

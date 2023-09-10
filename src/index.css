@@ -1,27 +1,41 @@
 :root {
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 	color-scheme: light dark;
-	background-color: #242424;
 
-	--dark-grey: #5c5c5c;
-	--middle-grey: #a9a9a9;
+	--grey100: #5c5c5c;
+	--grey200: #c3c3c3;
+	--constant-dark-grey: #5c5c5c;
 	--accent-orange: #f39237;
 	--error-background: #f9e7f1;
 	--error-text: #a82564;
 	--error-border: #d01c71;
+
+	color: #5c5c5c;
 }
 
 @media (prefers-color-scheme: light) {
 	:root {
-		color: #213547;
-		background-color: #fff;
-	}
+		--grey100: #5c5c5c;
+		--grey200: #c3c3c3;
+		--accent-orange: #f39237;
+		--error-background: #f9e7f1;
+		--error-text: #a82564;
+		--error-border: #d01c71;
 
-	a:hover {
-		color: #747bff;
+		background-color: white;
 	}
+}
 
-	button {
-		background-color: #f9f9f9;
+@media (prefers-color-scheme: dark) {
+	:root {
+		--grey100: #c3c3c3;
+		--grey200: #5c5c5c;
+		--accent-orange: #f39237;
+		--error-background: #f9e7f1;
+		--error-text: #a82564;
+		--error-border: #d01c71;
+
+		background-color: #5c5c5c;
+		color: #c3c3c3;
 	}
 }

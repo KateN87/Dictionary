@@ -4,13 +4,15 @@ import { WordListComp } from './components/WordListComp';
 import { HeaderComp } from './components/HeaderComp';
 import { MyWordsList } from './components/MyWordsList';
 import { IoSaveSharp } from 'react-icons/io5';
+import { FaSun, FaMoon } from 'react-icons/fa6';
 
 function App() {
 	const [foundWord, setFoundWord] = useState('');
 	const [wordList, setWordList] = useState<Word[]>([]);
 	const [myWords, setMyWords] = useState<Word[][]>([]);
+	const [theme, setTheme] = useState('light');
 
-	const handleSearch = async (
+	const getWords = async (
 		sWord: string
 	): Promise<string | boolean | undefined> => {
 		try {
@@ -38,12 +40,30 @@ function App() {
 		}
 	};
 
+	const handleClick = () => {
+		if (theme === 'light') {
+			setTheme('dark');
+		} else {
+			setTheme('light');
+		}
+	};
+
 	return (
-		<div className='app'>
-			<HeaderComp handleSearch={handleSearch} />
+		<div className={`app ${theme}`}>
+			{theme === 'light' ? (
+				<FaSun onClick={handleClick} className='theme-toggle' />
+			) : (
+				<FaMoon onClick={handleClick} className='theme-toggle' />
+			)}
+
+			<HeaderComp getWords={getWords} />
 			<div className='body-container'>
 				<div className='myword-container'>
-					<MyWordsList myWords={myWords} setWordList={setWordList} />
+					<MyWordsList
+						myWords={myWords}
+						setWordList={setWordList}
+						setFoundWord={setFoundWord}
+					/>
 				</div>
 				<div className='wordlist-container'>
 					{wordList.length > 0 && (

@@ -10,7 +10,7 @@
 	position: absolute;
 	width: 100px;
 	background-color: white;
-	border: 2px solid var(--middle-grey);
+	border: 2px solid var(--grey200);
 	top: 80%;
 	left: 100%;
 	transform: translateX(-25%);

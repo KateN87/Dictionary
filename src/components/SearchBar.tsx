@@ -2,10 +2,10 @@ import { useState } from 'react';
 import styles from './SearchBar.module.css';
 
 interface IFunction {
-	handleSearch: (sWord: string) => Promise<string | boolean | undefined>;
+	getWords: (sWord: string) => Promise<string | boolean | undefined>;
 }
 
-export const SearchBar = ({ handleSearch }: IFunction) => {
+export const SearchBar = ({ getWords }: IFunction) => {
 	const [searchWord, setSearchWord] = useState('');
 	const [error, setError] = useState('');
 
@@ -16,7 +16,7 @@ export const SearchBar = ({ handleSearch }: IFunction) => {
 			return setError('You need to type something in');
 		}
 
-		const resp = await handleSearch(searchWord);
+		const resp = await getWords(searchWord);
 		if (typeof resp === 'string') {
 			setError(resp);
 		} else if (resp === true) {

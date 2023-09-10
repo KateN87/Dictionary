@@ -3,6 +3,7 @@
 	flex-direction: column;
 	flex: 2;
 	justify-content: center;
+	margin-left: 10px;
 }
 
 .search-input {
@@ -10,21 +11,21 @@
 	max-width: 30em;
 	min-width: 10em;
 	height: 50px;
-	border: 2px solid var(--middle-grey);
+	border: 2px solid var(--grey100);
 	outline: none;
-	border-radius: 15px 0px 0px 15px;
+	border-radius: 15px 0 0 15px;
 	font-size: 18px;
 	box-sizing: border-box;
-	padding: 0px 15px;
-	color: var(--dark-grey);
+	padding: 0 15px;
+	color: var(--constant-dark-grey);
 }
 
 .submit-btn {
 	height: 50px;
 	width: 5em;
-	border: 2px solid var(--middle-grey);
+	border: 2px solid var(--grey100);
 	border-left: none;
-	border-radius: 0px 15px 15px 0px;
+	border-radius: 0 15px 15px 0;
 	cursor: pointer;
 	font-size: 18px;
 }
