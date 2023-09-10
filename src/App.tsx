@@ -58,14 +58,14 @@ function App() {
 
 			<HeaderComp getWords={getWords} />
 			<div className='body-container'>
-				<div className='myword-container'>
+				<div>
 					<MyWordsList
 						myWords={myWords}
 						setWordList={setWordList}
 						setFoundWord={setFoundWord}
 					/>
 				</div>
-				<div className='wordlist-container'>
+				<div>
 					{wordList.length > 0 && (
 						<>
 							<div className='word-container'>

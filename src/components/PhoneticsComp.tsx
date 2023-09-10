@@ -25,7 +25,9 @@ export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 			onMouseEnter={() => setShowPhonInfo(true)}
 			onMouseLeave={() => setShowPhonInfo(false)}
 		>
-			<p> {phonetic.text}</p>
+			<p>
+				<b> {phonetic.text} </b>
+			</p>
 			<AiFillSound
 				className={styles.audio}
 				onClick={() => playAudio(phonetic.audio)}

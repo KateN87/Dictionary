@@ -6,6 +6,7 @@ body {
 
 .app {
 	min-height: 100vh;
+	font-size: 18px;
 }
 
 .dark {
@@ -45,14 +46,6 @@ body {
 	margin-left: 20px;
 }
 
-.wordlist-container {
-	flex: 2;
-}
-
-.myword-container {
-	flex: 1;
-}
-
 .word {
 	font-size: 30px;
 	color: var(--accent-orange);
@@ -71,4 +64,5 @@ body {
 	color: var(--accent-orange);
 	position: absolute;
 	right: 0;
+	cursor: pointer;
 }

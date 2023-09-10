@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { IoTrash } from 'react-icons/io5';
 //styles
 import styles from './MyWordsList.module.css';
 
@@ -29,6 +30,7 @@ export const MyWordsList = ({
 						className={styles['word-list']}
 					>
 						{w[0].word}
+						<IoTrash className={styles['icon-trash']} />
 					</li>
 				))}
 			</ul>

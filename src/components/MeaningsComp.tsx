@@ -13,7 +13,9 @@ export const MeaningsComp = ({ meaning }: IMeaning) => {
 
 	return (
 		<div>
-			<p>Part of speech: {meaning.partOfSpeech}</p>
+			<p>
+				Part of speech: <b>{meaning.partOfSpeech}</b>
+			</p>
 			{meaning.definitions.length > 0 && (
 				<>
 					<div className={styles['title-def-container']}>

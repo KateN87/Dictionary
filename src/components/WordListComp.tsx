@@ -13,7 +13,10 @@ export const WordListComp = ({ wordList }: IWord) => {
 			{wordList.map((w, idx) => (
 				<div key={idx} className={styles['word-container']}>
 					<p>
-						Word: {w.word} {w.phonetic}
+						Word:{' '}
+						<b>
+							{w.word} {w.phonetic}
+						</b>
 					</p>
 					{w.phonetics.length > 0 && (
 						<div className={styles['phonetics-container']}>
