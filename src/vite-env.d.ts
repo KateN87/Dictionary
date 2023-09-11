@@ -2,7 +2,7 @@
 
 type Word = {
 	word: string;
-	phonetic: string;
+	phonetic?: string;
 	phonetics: Phonetics[];
 	origin?: string;
 	meanings: Meanings[];

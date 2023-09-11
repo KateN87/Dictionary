@@ -43,11 +43,13 @@ function App() {
 
 	useEffect(() => {
 		const maybeExists = myWords.find((word) => word[0].word === foundWord);
+
 		if (maybeExists) {
 			setWordExists(true);
 		} else {
 			setWordExists(false);
 		}
+		console.log('myWords', myWords);
 	}, [myWords, foundWord]);
 
 	const handleClick = () => {
@@ -65,15 +67,24 @@ function App() {
 	return (
 		<div className={`app ${theme}`}>
 			{theme === 'light' ? (
-				<FaSun onClick={handleClick} className='theme-toggle' />
+				<FaSun
+					onClick={handleClick}
+					className='theme-toggle'
+					aria-label='sun'
+				/>
 			) : (
-				<FaMoon onClick={handleClick} className='theme-toggle' />
+				<FaMoon
+					onClick={handleClick}
+					className='theme-toggle'
+					aria-label='moon'
+				/>
 			)}
 
 			<HeaderComp getWords={getWords} />
 			<div className='body-container'>
 				<div>
 					<MyWordsList
+						setMyWords={setMyWords}
 						myWords={myWords}
 						setWordList={setWordList}
 						setFoundWord={setFoundWord}
@@ -88,11 +99,15 @@ function App() {
 									<span className='word'>{foundWord}</span>
 								</h3>
 								{wordExists ? (
-									<IoCheckmarkSharp className='save-icon' />
+									<IoCheckmarkSharp
+										className='save-icon'
+										aria-label='save'
+									/>
 								) : (
 									<IoSaveSharp
 										className='save-icon'
 										onClick={handleSave}
+										aria-label='check'
 									/>
 								)}
 							</div>
