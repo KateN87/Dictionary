@@ -6,6 +6,7 @@ import App from '../App';
 //1. Ska jag testa funktionen för att man fått ett ord här? Även om det mesta av det ligger i searchbar? Functions in searched word
 //2. Samma med att kolla vilken icon som visas
 //3. Samma med vad som händer när man klickar på ikonen
+//4. För att hitta svg lade jag till aria-label i app.tsx, är det rätt? Annars behövde jag använde document. istf screen.
 
 describe('Shows on load', () => {
 	//Renders app before each test
