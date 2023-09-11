@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { WordListComp } from './components/WordListComp';
 import { HeaderComp } from './components/HeaderComp';
 import { MyWordsList } from './components/MyWordsList';
-import { IoSaveSharp } from 'react-icons/io5';
+import { IoSaveSharp, IoCheckmarkSharp } from 'react-icons/io5';
 import { FaSun, FaMoon } from 'react-icons/fa6';
 
 function App() {
 	const [foundWord, setFoundWord] = useState('');
+	const [wordExists, setWordExists] = useState(true);
 	const [wordList, setWordList] = useState<Word[]>([]);
 	const [myWords, setMyWords] = useState<Word[][]>([]);
 	const [theme, setTheme] = useState('light');
@@ -40,12 +41,25 @@ function App() {
 		}
 	};
 
+	useEffect(() => {
+		const maybeExists = myWords.find((word) => word[0].word === foundWord);
+		if (maybeExists) {
+			setWordExists(true);
+		} else {
+			setWordExists(false);
+		}
+	}, [myWords, foundWord]);
+
 	const handleClick = () => {
 		if (theme === 'light') {
 			setTheme('dark');
 		} else {
 			setTheme('light');
 		}
+	};
+
+	const handleSave = () => {
+		setMyWords((prev) => [...prev, wordList]);
 	};
 
 	return (
@@ -73,15 +87,14 @@ function App() {
 									Searched Word:{' '}
 									<span className='word'>{foundWord}</span>
 								</h3>
-								<IoSaveSharp
-									className='save-icon'
-									onClick={() =>
-										setMyWords((prev) => [
-											...prev,
-											wordList,
-										])
-									}
-								/>
+								{wordExists ? (
+									<IoCheckmarkSharp className='save-icon' />
+								) : (
+									<IoSaveSharp
+										className='save-icon'
+										onClick={handleSave}
+									/>
+								)}
 							</div>
 							<WordListComp wordList={wordList} />
 						</>
