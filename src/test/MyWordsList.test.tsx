@@ -3,6 +3,9 @@ import { render, screen } from '@testing-library/react';
 import { MyWordsList } from '../components/MyWordsList';
 /* import mockMyWords from './mockMyWords.json'; */
 
+//Fråga:
+//1. Ska jag kolla att de läggs till här eller i app.test?
+
 describe('Shows on load', () => {
 	//Renders app before each test
 	beforeEach(() => {
@@ -17,10 +20,18 @@ describe('Shows on load', () => {
 	});
 
 	it('should show My Words', () => {
-		expect(screen.getByText('My Words')).toBeInTheDocument();
+		const textEl = screen.getByText('My Words');
+		expect(textEl).toBeInTheDocument();
 	});
 
-	it.todo('should have a list element', () => {});
+	it('should have a list element', () => {
+		screen.debug();
+		const listEl = screen.getByRole('list');
+		expect(listEl).toBeInTheDocument();
+	});
 
-	it.todo('should have an empty list element', () => {});
+	it('should have an empty list element', () => {
+		const itemEl = screen.queryByRole('listitem');
+		expect(itemEl).toBeNull();
+	});
 });
