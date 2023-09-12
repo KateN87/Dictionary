@@ -12,14 +12,14 @@ type Word = {
 
 type Phonetics = {
 	audio: string;
-	license: License;
+	license?: License;
 	sourceUrl: string;
 	text: string;
 };
 
 type License = {
 	name: string;
-	url: string;
+	url?: string;
 };
 
 type Meanings = {
