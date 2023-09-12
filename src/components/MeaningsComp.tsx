@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { PiCaretCircleDown, PiCaretCircleUp } from 'react-icons/pi';
+import { Fragment, useState } from "react";
+import { PiCaretCircleDown, PiCaretCircleUp } from "react-icons/pi";
 
 //styles
-import styles from './MeaningsComp.module.css';
+import styles from "./MeaningsComp.module.css";
 
 interface IMeaning {
 	meaning: Meanings;
@@ -18,28 +18,28 @@ export const MeaningsComp = ({ meaning }: IMeaning) => {
 			</p>
 			{meaning.definitions.length > 0 && (
 				<>
-					<div className={styles['title-def-container']}>
+					<div className={styles["title-def-container"]}>
 						<p>Definition:</p>
 						{meaning.definitions?.length > 1 && (
 							<p
 								onClick={() => setShowMore(!showMore)}
-								className={styles['show-more-less']}
+								className={styles["show-more-less"]}
 							>
-								{showMore ? 'show less' : 'show more'}
+								{showMore ? "show less" : "show more"}
 
 								{showMore ? (
 									<PiCaretCircleUp
-										className={styles['icon-caret']}
+										className={styles["icon-caret"]}
 									/>
 								) : (
 									<PiCaretCircleDown
-										className={styles['icon-caret']}
+										className={styles["icon-caret"]}
 									/>
 								)}
 							</p>
 						)}
 					</div>
-					<ul className={styles['def-list']}>
+					<ul className={styles["def-list"]}>
 						{meaning.definitions?.map((def, idx) => {
 							if (idx === 0) {
 								return (
@@ -49,7 +49,7 @@ export const MeaningsComp = ({ meaning }: IMeaning) => {
 											<p>Example: {def.example}</p>
 										)}
 										{def.synonyms.length > 0 && (
-											<>
+											<Fragment>
 												<p>Synonyms:</p>
 
 												<ul>
@@ -61,7 +61,7 @@ export const MeaningsComp = ({ meaning }: IMeaning) => {
 														)
 													)}
 												</ul>
-											</>
+											</Fragment>
 										)}
 										{def.antonyms.length > 0 && (
 											<>

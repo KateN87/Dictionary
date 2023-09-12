@@ -1,13 +1,33 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { describe, it, expect, beforeEach, beforeAll, afterAll } from "vitest";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { setupServer } from "msw/node";
+import { rest } from "msw";
 import App from "../App";
 
-//frågor:
-//1. Ska jag testa funktionen för att man fått ett ord här? Även om det mesta av det ligger i searchbar? Functions in searched word
-//2. Samma med att kolla vilken icon som visas
-//3. Samma med vad som händer när man klickar på ikonen
-//4. För att hitta svg lade jag till aria-label i app.tsx, är det rätt? Annars behövde jag använde document. istf screen.
+import mockWordList from "./mockWordList.json";
+
+const server = setupServer(
+	// Describe the requests to mock.
+	rest.get(
+		`https://api.dictionaryapi.dev/api/v2/entries/en/house`,
+		(_req, res, ctx) => {
+			return res(ctx.json(mockWordList));
+		}
+	),
+	rest.get(
+		`https://api.dictionaryapi.dev/api/v2/entries/en/abc123`,
+		(_req, res, ctx) => {
+			return res(
+				// Send a valid HTTP status code
+				ctx.status(404)
+			);
+		}
+	)
+);
+
+beforeAll(() => server.listen());
+afterAll(() => server.close());
 
 describe("Shows on load", () => {
 	//Renders app before each test
@@ -78,13 +98,58 @@ describe("theme-toggle", () => {
 });
 
 describe("functions in searched word", () => {
-	it.todo(
-		"should not show 'Searched Word' when wordList.length === 0 ",
-		() => {}
-	);
+	it("should not show 'Searched Word' when wordList.length === 0 ", () => {
+		const textEl = screen.queryByText("Searched Word");
+		expect(textEl).toBeNull();
+	});
 
-	it.todo("should show 'Searched Word' when word-list.length > 0", () => {});
 	it.todo("Should show 'house' when 'house' is in wordList", () => {});
 	it.todo("Should show icon save when 'house' is not in myWords", () => {});
 	it.todo("Should show icon check when 'house 'is in myWords", () => {});
+});
+
+describe("Search functions", () => {
+	beforeEach(() => {
+		render(<App />);
+	});
+
+	it("Shuld show typed word", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const textEl = screen.getByDisplayValue("house");
+		expect(textEl).toBeInTheDocument();
+	});
+
+	it("should show 'Searched Word: house' when house is submitted", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const textEl = await screen.findByText("Searched Word:");
+		const textEl2 = await within(textEl).findByText("house", {
+			exact: false,
+		});
+
+		expect(textEl2).toBeInTheDocument();
+	});
+
+	it("should show 'Sorry, we couldn`t find the word you searched for' when 'abc' is submitted", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "abc123");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const textEl = await screen.findByText(
+			"Sorry, we couldn`t find the word you searched for"
+		);
+
+		waitFor(() => expect(textEl).toBeInTheDocument());
+	});
 });

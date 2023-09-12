@@ -1,7 +1,5 @@
 import { AiFillSound } from "react-icons/ai";
-
 import styles from "./PhoneticsComp.module.css";
-
 import { useState } from "react";
 
 interface IPhonetic {

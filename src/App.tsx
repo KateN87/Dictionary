@@ -25,11 +25,11 @@ function App() {
 				const data = await resp.json();
 				setFoundWord(sWord);
 				setWordList(data);
-
+				console.log("DATA", data);
 				return true;
 			} else if (resp.status === 404) {
 				throw new Error(
-					"Sorry, we couldn`t find the word you searched for :("
+					"Sorry, we couldn`t find the word you searched for"
 				);
 			} else {
 				throw new Error("Failed to fetch data from the API.");

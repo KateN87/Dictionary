@@ -1,49 +1,50 @@
-import { useState } from 'react';
-import styles from './SearchBar.module.css';
+import { useState } from "react";
+import styles from "./SearchBar.module.css";
 
 interface IFunction {
 	getWords: (sWord: string) => Promise<string | boolean | undefined>;
 }
 
 export const SearchBar = ({ getWords }: IFunction) => {
-	const [searchWord, setSearchWord] = useState('');
-	const [error, setError] = useState('');
+	const [searchWord, setSearchWord] = useState("");
+	const [error, setError] = useState("");
 
 	const trySearch = async () => {
-		setError('');
+		setError("");
 
-		if (searchWord === '') {
-			return setError('You need to type something in');
+		if (searchWord === "") {
+			return setError("You need to type something in");
 		}
 
 		const resp = await getWords(searchWord);
-		if (typeof resp === 'string') {
+		if (typeof resp === "string") {
 			setError(resp);
 		} else if (resp === true) {
-			setSearchWord('');
+			setSearchWord("");
 		}
 	};
 
 	return (
-		<div className={styles['search-container']}>
+		<div className={styles["search-container"]}>
 			<div>
 				<input
-					className={styles['search-input']}
-					placeholder='Search a word...'
+					className={styles["search-input"]}
+					placeholder="Search a word..."
 					value={searchWord}
-					type='text'
+					type="text"
 					onChange={(e) => setSearchWord(e.target.value)}
 				/>
 
 				<input
-					className={styles['submit-btn']}
-					type='submit'
+					className={styles["submit-btn"]}
+					type="submit"
+					value="Submit"
 					onClick={trySearch}
 				/>
 			</div>
 			{error && (
-				<div className={styles['error-container']}>
-					<p className={styles['error-text']}>{error}</p>
+				<div className={styles["error-container"]}>
+					<p className={styles["error-text"]}>{error}</p>
 				</div>
 			)}
 		</div>
