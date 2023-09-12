@@ -29,6 +29,7 @@ export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 			<AiFillSound
 				className={styles.audio}
 				onClick={() => playAudio(phonetic.audio)}
+				aria-label="sound-icon"
 			/>
 
 			{showPhonInfo && (

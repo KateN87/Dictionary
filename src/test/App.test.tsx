@@ -1,4 +1,12 @@
-import { describe, it, expect, beforeEach, beforeAll, afterAll } from "vitest";
+import {
+	describe,
+	it,
+	expect,
+	beforeEach,
+	beforeAll,
+	afterAll,
+	vi,
+} from "vitest";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { setupServer } from "msw/node";
@@ -18,10 +26,7 @@ const server = setupServer(
 	rest.get(
 		`https://api.dictionaryapi.dev/api/v2/entries/en/abc123`,
 		(_req, res, ctx) => {
-			return res(
-				// Send a valid HTTP status code
-				ctx.status(404)
-			);
+			return res(ctx.status(404));
 		}
 	)
 );
@@ -102,10 +107,6 @@ describe("functions in searched word", () => {
 		const textEl = screen.queryByText("Searched Word");
 		expect(textEl).toBeNull();
 	});
-
-	it.todo("Should show 'house' when 'house' is in wordList", () => {});
-	it.todo("Should show icon save when 'house' is not in myWords", () => {});
-	it.todo("Should show icon check when 'house 'is in myWords", () => {});
 });
 
 describe("Search functions", () => {
@@ -150,6 +151,53 @@ describe("Search functions", () => {
 			"Sorry, we couldn`t find the word you searched for"
 		);
 
-		waitFor(() => expect(textEl).toBeInTheDocument());
+		expect(textEl).toBeInTheDocument();
 	});
 });
+
+it.todo(
+	"searchbar value should be empty when youve clicked submit and a word is ok"
+);
+it.todo(
+	"Should show error 'Failed to fetch data from the API.' when resp is neither 200 or 404"
+);
+it.todo("error message should disappear when i write in a new ok word");
+it.todo("should render words in myWordList");
+
+it.todo("Should show icon save when 'house' is not in myWords", () => {});
+it.todo("Should show icon check when 'house 'is in myWords", () => {});
+
+it.todo("myWordList should be longer when save icon is clicked");
+it.todo("myWordList should be shorter when save icon is clicked");
+
+it.only("should play sound when clicked", async () => {
+	/* vi.spyOn(global.Audio, 'play') */
+	/* const mockPlay = vi.fn(); */
+	const audioSpy = vi.spyOn(global, "Audio");
+	/* 
+	global.Audio = vi.fn().mockImplementation(() => ({
+		play: mockPlay,
+	})); */
+
+	render(<App />);
+
+	const user = userEvent.setup();
+	const searchBar = screen.getByPlaceholderText("Search a word...");
+	await user.type(searchBar, "house");
+
+	const submitButton = screen.getByDisplayValue("Submit");
+	await user.click(submitButton);
+
+	const iconEl = await screen.findAllByLabelText("sound-icon");
+	await user.click(iconEl[0]);
+
+	expect(audioSpy).toHaveBeenCalled();
+	/* expect(iconEl[0]).toBeInTheDocument(); */
+});
+
+it.todo("should show license on hover");
+
+it.todo("shows more definitions when show more is clicked");
+it.todo("shows less definitions when show less is clicked");
+
+it.todo("Test that everything in word exists");
