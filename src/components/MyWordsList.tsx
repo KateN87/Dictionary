@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from 'react';
-import { IoTrash } from 'react-icons/io5';
+import { Dispatch, SetStateAction } from "react";
+import { IoTrash } from "react-icons/io5";
 //styles
-import styles from './MyWordsList.module.css';
+import styles from "./MyWordsList.module.css";
 
 interface IMyList {
 	setMyWords: Dispatch<SetStateAction<Word[][]>>;
@@ -28,18 +28,19 @@ export const MyWordsList = ({
 	};
 
 	return (
-		<div>
+		<div data-testid="my-words-list">
 			<h3 className={styles.title}>My Words</h3>
-			<ul className={styles['word-list']}>
+			<ul className={styles["word-list"]}>
 				{myWords.map((w: Word[], idx) => (
 					<li
 						key={idx}
 						onClick={() => handleClick(w)}
-						className={styles['word-list']}
+						className={styles["word-list"]}
 					>
 						{w[0].word}
 						<IoTrash
-							className={styles['icon-trash']}
+							aria-label="delete-icon"
+							className={styles["icon-trash"]}
 							onClick={() => deleteHandler(w)}
 						/>
 					</li>

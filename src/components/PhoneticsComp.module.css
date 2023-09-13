@@ -16,6 +16,8 @@
 	transform: translateX(-25%);
 	font-size: 12px;
 	padding: 4px;
+	display: flex;
+	flex-direction: column;
 }
 
 .audio {

@@ -84,7 +84,6 @@ export const MeaningsComp = ({ meaning }: IMeaning) => {
 								return (
 									<li key={idx}>
 										{def.definition}
-										{def.definition}
 										{def.example && (
 											<p>Example: {def.example}</p>
 										)}

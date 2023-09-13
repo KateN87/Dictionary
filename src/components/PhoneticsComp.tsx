@@ -39,6 +39,9 @@ export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 							license: {phonetic.license.name}
 						</a>
 					)}
+					{phonetic.sourceUrl && (
+						<a href={phonetic.sourceUrl}>source</a>
+					)}
 				</div>
 			)}
 		</div>

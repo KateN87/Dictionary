@@ -14,6 +14,10 @@ import { rest } from "msw";
 import App from "../App";
 
 import mockWordList from "./mockWordList.json";
+import mockMyWords from "./mockMyWords.json";
+
+//1. Hur testa för failed to fetch (connection err)
+//2. hur lägger jag till mockMyWords? Eller ska jag ens det?
 
 const server = setupServer(
 	// Describe the requests to mock.
@@ -21,6 +25,12 @@ const server = setupServer(
 		`https://api.dictionaryapi.dev/api/v2/entries/en/house`,
 		(_req, res, ctx) => {
 			return res(ctx.json(mockWordList));
+		}
+	),
+	rest.get(
+		`https://api.dictionaryapi.dev/api/v2/entries/en/abc123`,
+		(_req, res, ctx) => {
+			return res(ctx.status(404));
 		}
 	),
 	rest.get(
@@ -185,17 +195,157 @@ describe("Search functions", () => {
 	});
 });
 
+describe("MyWords functions", () => {
+	beforeEach(() => {
+		render(<App />);
+	});
+
+	it("should not have words in myWordList", () => {
+		const myWordsDiv = screen.getByTestId("my-words-list");
+		expect(myWordsDiv).toBeInTheDocument();
+		const wordsList = within(myWordsDiv).getByRole("list");
+		expect(wordsList).toBeInTheDocument();
+		const wordsListItem = within(wordsList).queryByRole("list-item");
+		expect(wordsListItem).toBeNull();
+	});
+
+	it("Should show icon save when 'house' is not in myWords", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const saveIcon = screen.getByLabelText("save");
+		screen.debug();
+		expect(saveIcon).toBeInTheDocument();
+	});
+
+	it("Should have one word in myWordsList when save is clicked", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const saveIcon = screen.getByLabelText("save");
+		await user.click(saveIcon);
+
+		const myWordsDiv = screen.getByTestId("my-words-list");
+
+		const wordsList = within(myWordsDiv).getByRole("list");
+
+		const wordsListItem = within(wordsList).getAllByRole("listitem");
+
+		expect(wordsListItem.length).toBe(1);
+
+		const deleteIcon = within(wordsListItem[0]).getByLabelText(
+			"delete-icon"
+		);
+
+		expect(deleteIcon).toBeInTheDocument();
+	});
+
+	it("Should show icon check when 'house 'is in myWords", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const saveIcon = screen.getByLabelText("save");
+		await user.click(saveIcon);
+
+		const checkIcon = screen.getByLabelText("check");
+
+		expect(checkIcon).toBeInTheDocument();
+	});
+
+	it("myWordList should be shorter when delete icon is clicked", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const saveIcon = screen.getByLabelText("save");
+		await user.click(saveIcon);
+
+		const myWordsDiv = screen.getByTestId("my-words-list");
+
+		const wordsList = within(myWordsDiv).getByRole("list");
+
+		const wordsListItem = within(wordsList).getAllByRole("listitem");
+
+		const deleteIcon = within(wordsListItem[0]).getByLabelText(
+			"delete-icon"
+		);
+
+		await user.click(deleteIcon);
+
+		//Need to get it again to get new ref
+		const wordsListItem2 = within(wordsList).queryByRole("list-item");
+		expect(wordsListItem2).toBeNull();
+	});
+});
+
+describe("Main word container", () => {
+	beforeEach(() => {
+		render(<App />);
+	});
+
+	it("shows all info", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const wordContainer = screen.getAllByTestId("word-container");
+
+		expect(wordContainer.length).toBe(3);
+
+		const wordTitleWord = within(wordContainer[0]).getByText("Word:");
+		const wordTitleListen = within(wordContainer[0]).getByText("Listen:");
+		const wordTitlePart = within(wordContainer[0]).getByText(
+			"Part of speech:"
+		);
+		const wordTitleDefinition = within(wordContainer[0]).getByText(
+			"Definition:"
+		);
+		const wordTitleLicense = within(wordContainer[0]).getByText("License:");
+		const wordTitleSource = within(wordContainer[0]).getByText("Source:");
+		const wordHousePhonetic = within(wordContainer[0]).getAllByText(
+			"house",
+			{ exact: false }
+		);
+		const partofspeechText = within(wordContainer[0]).getByText("noun");
+		const licenseText = within(wordContainer[0]).getByText("CC BY-SA 3.0");
+		const sourceUrl = within(wordContainer[0]).getByText(
+			"https://en.wiktionary.org/wiki/house"
+		);
+
+		expect(wordTitleWord).toBeInTheDocument();
+		expect(wordTitleListen).toBeInTheDocument();
+		expect(wordTitlePart).toBeInTheDocument();
+		expect(wordTitleDefinition).toBeInTheDocument();
+		expect(wordTitleLicense).toBeInTheDocument();
+		expect(wordTitleSource).toBeInTheDocument();
+		expect(wordHousePhonetic.length).toBeGreaterThan(0);
+		expect(partofspeechText).toBeInTheDocument();
+		expect(licenseText).toBeInTheDocument();
+		expect(sourceUrl).toBeInTheDocument();
+	});
+});
+
 it.todo(
 	"Should show error 'Failed to fetch data from the API.' when resp is neither 200 or 404"
 );
-
-it.todo("should render words in myWordList");
-
-it.todo("Should show icon save when 'house' is not in myWords", () => {});
-it.todo("Should show icon check when 'house 'is in myWords", () => {});
-
-it.todo("myWordList should be longer when save icon is clicked");
-it.todo("myWordList should be shorter when save icon is clicked");
 
 it("should play sound when clicked", async () => {
 	/* vi.spyOn(global.Audio, 'play') */

@@ -1,7 +1,7 @@
 //styles
-import { MeaningsComp } from './MeaningsComp';
-import { PhoneticsComp } from './PhoneticsComp';
-import styles from './WordListComp.module.css';
+import { MeaningsComp } from "./MeaningsComp";
+import { PhoneticsComp } from "./PhoneticsComp";
+import styles from "./WordListComp.module.css";
 
 interface IWord {
 	wordList: Word[];
@@ -11,18 +11,22 @@ export const WordListComp = ({ wordList }: IWord) => {
 	return (
 		<div>
 			{wordList.map((w, idx) => (
-				<div key={idx} className={styles['word-container']}>
+				<div
+					key={idx}
+					className={styles["word-container"]}
+					data-testid="word-container"
+				>
 					<p>
-						Word:{' '}
+						Word:{" "}
 						<b>
 							{w.word} {w.phonetic}
 						</b>
 					</p>
 					{w.phonetics.length > 0 && (
-						<div className={styles['phonetics-container']}>
+						<div className={styles["phonetics-container"]}>
 							<p>Listen: </p>
 							{w.phonetics.map((p, idx) => {
-								if (p.audio !== '') {
+								if (p.audio !== "") {
 									return (
 										<PhoneticsComp
 											phonetic={p}
@@ -44,8 +48,8 @@ export const WordListComp = ({ wordList }: IWord) => {
 					</p>
 					{w.sourceUrls.map((s, idx) => (
 						<p key={idx}>
-							Source:{' '}
-							<a href={s} target='_blank'>
+							Source:{" "}
+							<a href={s} target="_blank">
 								{s}
 							</a>
 						</p>

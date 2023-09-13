@@ -8,7 +8,7 @@ import { FaSun, FaMoon } from "react-icons/fa6";
 
 function App() {
 	const [foundWord, setFoundWord] = useState("");
-	const [wordExists, setWordExists] = useState(true);
+	const [wordExists, setWordExists] = useState(false);
 	const [wordList, setWordList] = useState<Word[]>([]);
 	const [myWords, setMyWords] = useState<Word[][]>([]);
 	const [theme, setTheme] = useState("light");
@@ -32,7 +32,7 @@ function App() {
 					"Sorry, we couldn`t find the word you searched for"
 				);
 			} else {
-				throw new Error("Failed to fetch data from the API.");
+				throw new Error("Something went wrong.");
 			}
 		} catch (err) {
 			if (err instanceof Error) {
@@ -99,14 +99,14 @@ function App() {
 								</h3>
 								{wordExists ? (
 									<IoCheckmarkSharp
-										className="save-icon"
-										aria-label="save"
+										className="check-icon"
+										aria-label="check"
 									/>
 								) : (
 									<IoSaveSharp
 										className="save-icon"
 										onClick={handleSave}
-										aria-label="check"
+										aria-label="save"
 									/>
 								)}
 							</div>
