@@ -14,10 +14,8 @@ import { rest } from "msw";
 import App from "../App";
 
 import mockWordList from "./mockWordList.json";
-import mockMyWords from "./mockMyWords.json";
 
 //1. Hur testa för failed to fetch (connection err)
-//2. hur lägger jag till mockMyWords? Eller ska jag ens det?
 
 const server = setupServer(
 	// Describe the requests to mock.
@@ -329,6 +327,9 @@ describe("Main word container", () => {
 		const sourceUrl = within(wordContainer[0]).getByText(
 			"https://en.wiktionary.org/wiki/house"
 		);
+		const showMore = within(wordContainer[0]).getByText("Show more", {
+			exact: false,
+		});
 
 		expect(wordTitleWord).toBeInTheDocument();
 		expect(wordTitleListen).toBeInTheDocument();
@@ -340,7 +341,34 @@ describe("Main word container", () => {
 		expect(partofspeechText).toBeInTheDocument();
 		expect(licenseText).toBeInTheDocument();
 		expect(sourceUrl).toBeInTheDocument();
+		expect(showMore).toBeInTheDocument();
 	});
+
+	it("should show 'source' on hover and remove on unhover", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText("Search a word...");
+		await user.type(searchBar, "house");
+
+		const submitButton = screen.getByDisplayValue("Submit");
+		await user.click(submitButton);
+
+		const phoneticsContainer = screen.getAllByLabelText("sound-icon");
+
+		await user.hover(phoneticsContainer[0]);
+
+		const license = screen.getByText("source");
+		expect(license).toBeInTheDocument();
+
+		await user.unhover(phoneticsContainer[0]);
+
+		//need new ref
+		const license2 = screen.queryByText("source");
+		expect(license2).toBeNull();
+	});
+
+	it("Definition-list should show one def when show more is visible", () => {
+
+	})
 });
 
 it.todo(
@@ -372,9 +400,6 @@ it("should play sound when clicked", async () => {
 	/* expect(iconEl[0]).toBeInTheDocument(); */
 });
 
-it.todo("should show license on hover");
-
 it.todo("shows more definitions when show more is clicked");
 it.todo("shows less definitions when show less is clicked");
 
-it.todo("Test that everything in word exists");
