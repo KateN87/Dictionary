@@ -15,8 +15,6 @@ import App from '../App';
 
 import mockWordList from './mockWordList.json';
 
-//1. Hur testa för failed to fetch (connection err)
-
 const server = setupServer(
 	// Describe the requests to mock.
 	rest.get(
@@ -31,10 +29,11 @@ const server = setupServer(
 			return res(ctx.status(404));
 		}
 	),
+	//represents a network error
 	rest.get(
-		`https://api.dictionaryapi.dev/api/v2/entries/en/abc123`,
-		(_req, res, ctx) => {
-			return res(ctx.status(404));
+		`https://api.dictionaryapi.dev/api/v2/entries/en/dgfgdsd`,
+		(_req, res) => {
+			return res.networkError('Failed to fetch');
 		}
 	)
 );
@@ -158,6 +157,19 @@ describe('Search functions', () => {
 		const errorText = await screen.findByText(
 			'Sorry, we couldn`t find the word you searched for'
 		);
+
+		expect(errorText).toBeInTheDocument();
+	});
+
+	it("should show 'Something went wrong' when 'dgfgdsd' is submitted", async () => {
+		const user = userEvent.setup();
+		const searchBar = screen.getByPlaceholderText('Search a word...');
+		await user.type(searchBar, 'dgfgdsd');
+
+		const submitButton = screen.getByDisplayValue('Submit');
+		await user.click(submitButton);
+
+		const errorText = await screen.findByText('Something went wrong');
 
 		expect(errorText).toBeInTheDocument();
 	});
@@ -377,13 +389,13 @@ describe('Main word container', () => {
 		const meaningList = screen.getAllByTestId('meaning');
 		expect(meaningList.length).toBeGreaterThan(0);
 
-		//Don't need getAllBy sinve I want it to fail if there´s more than one listitem
+		//Don't need getAllBy since I want it to fail if there´s more than one listitem
 		const listItem = within(meaningList[0]).getByRole('listitem');
 
 		expect(listItem).toBeInTheDocument();
 	});
 
-	it.only('Definition-list should show more than one def when "show less" is visible', async () => {
+	it('Definition-list should show more than one def when "show less" is visible', async () => {
 		const user = userEvent.setup();
 		const searchBar = screen.getByPlaceholderText('Search a word...');
 		await user.type(searchBar, 'house');
@@ -411,10 +423,6 @@ describe('Main word container', () => {
 		expect(listItem.length).toBe(18);
 	});
 });
-
-it.todo(
-	"Should show error 'Failed to fetch data from the API.' when resp is neither 200 or 404"
-);
 
 it('should play sound when clicked', async () => {
 	/* vi.spyOn(global.Audio, 'play') */
