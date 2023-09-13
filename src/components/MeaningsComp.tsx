@@ -1,8 +1,8 @@
-import { Fragment, useState } from "react";
-import { PiCaretCircleDown, PiCaretCircleUp } from "react-icons/pi";
+import { Fragment, useState } from 'react';
+import { PiCaretCircleDown, PiCaretCircleUp } from 'react-icons/pi';
 
 //styles
-import styles from "./MeaningsComp.module.css";
+import styles from './MeaningsComp.module.css';
 
 interface IMeaning {
 	meaning: Meanings;
@@ -12,34 +12,34 @@ export const MeaningsComp = ({ meaning }: IMeaning) => {
 	const [showMore, setShowMore] = useState(false);
 
 	return (
-		<div>
+		<div data-testid='meaning'>
 			<p>
 				Part of speech: <b>{meaning.partOfSpeech}</b>
 			</p>
 			{meaning.definitions.length > 0 && (
 				<>
-					<div className={styles["title-def-container"]}>
+					<div className={styles['title-def-container']}>
 						<p>Definition:</p>
 						{meaning.definitions?.length > 1 && (
 							<p
 								onClick={() => setShowMore(!showMore)}
-								className={styles["show-more-less"]}
+								className={styles['show-more-less']}
 							>
-								{showMore ? "show less" : "show more"}
+								{showMore ? 'show less' : 'show more'}
 
 								{showMore ? (
 									<PiCaretCircleUp
-										className={styles["icon-caret"]}
+										className={styles['icon-caret']}
 									/>
 								) : (
 									<PiCaretCircleDown
-										className={styles["icon-caret"]}
+										className={styles['icon-caret']}
 									/>
 								)}
 							</p>
 						)}
 					</div>
-					<ul className={styles["def-list"]}>
+					<ul className={styles['def-list']}>
 						{meaning.definitions?.map((def, idx) => {
 							if (idx === 0) {
 								return (
