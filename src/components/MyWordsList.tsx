@@ -1,7 +1,13 @@
-import { Dispatch, SetStateAction } from "react";
-import { IoTrash } from "react-icons/io5";
-//styles
-import styles from "./MyWordsList.module.css";
+import { Dispatch, SetStateAction } from 'react';
+import { IoTrash } from 'react-icons/io5';
+import styles from './MyWordsList.module.css';
+
+interface IMyList {
+	setMyWords: Dispatch<SetStateAction<Word[][]>>;
+	myWords: Word[][];
+	setWordList: Dispatch<SetStateAction<Word[]>>;
+	setFoundWord: Dispatch<SetStateAction<string>>;
+}
 
 /**
  * - uses setMyWords, myWords, setWordList, setFoundWord
@@ -10,13 +16,6 @@ import styles from "./MyWordsList.module.css";
  * - when trashcan is clicked the word will be deleted from the list with setMyWords
  * - when word is clicked SetFoundWord is updated with that word
  */
-
-interface IMyList {
-	setMyWords: Dispatch<SetStateAction<Word[][]>>;
-	myWords: Word[][];
-	setWordList: Dispatch<SetStateAction<Word[]>>;
-	setFoundWord: Dispatch<SetStateAction<string>>;
-}
 
 export const MyWordsList = ({
 	setMyWords,
@@ -36,19 +35,19 @@ export const MyWordsList = ({
 	};
 
 	return (
-		<div data-testid="my-words-list">
+		<div data-testid='my-words-list'>
 			<h3 className={styles.title}>My Words</h3>
-			<ul className={styles["word-list"]}>
+			<ul className={styles['word-list']}>
 				{myWords.map((w: Word[], idx) => (
 					<li
 						key={idx}
 						onClick={() => handleClick(w)}
-						className={styles["word-list"]}
+						className={styles['word-list']}
 					>
 						{w[0].word}
 						<IoTrash
-							aria-label="delete-icon"
-							className={styles["icon-trash"]}
+							aria-label='delete-icon'
+							className={styles['icon-trash']}
 							onClick={() => deleteHandler(w)}
 						/>
 					</li>

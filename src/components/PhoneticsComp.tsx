@@ -1,6 +1,6 @@
-import { AiFillSound } from "react-icons/ai";
-import styles from "./PhoneticsComp.module.css";
-import { useState } from "react";
+import { AiFillSound } from 'react-icons/ai';
+import styles from './PhoneticsComp.module.css';
+import { useState } from 'react';
 
 interface IPhonetic {
 	phonetic: Phonetics;
@@ -26,7 +26,7 @@ export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 	return (
 		<div
 			key={idx}
-			className={styles["sound-container"]}
+			className={styles['sound-container']}
 			onMouseEnter={() => setShowPhonInfo(true)}
 			onMouseLeave={() => setShowPhonInfo(false)}
 		>
@@ -36,13 +36,13 @@ export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 			<AiFillSound
 				className={styles.audio}
 				onClick={() => playAudio(phonetic.audio)}
-				aria-label="sound-icon"
+				aria-label='sound-icon'
 			/>
 			{/* only shows when hover on parent div */}
 			{showPhonInfo && (
-				<div className={styles["phonetic-info"]}>
+				<div className={styles['phonetic-info']}>
 					{phonetic.license?.url && (
-						<a href={phonetic.license.url} target="_blank">
+						<a href={phonetic.license.url} target='_blank'>
 							license: {phonetic.license.name}
 						</a>
 					)}

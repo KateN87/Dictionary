@@ -1,17 +1,16 @@
 interface IDefinitions {
 	definitionItem: Definitions;
-	idx: number;
 }
 
 /**
- * Gets one definition from prop definitionItem
- * Displays synonyms and antonyms in lists
+ * - Gets one definition from prop definitionItem
+ * - Displays synonyms and antonyms in lists
  */
 
-export const DefinitionItemComp = ({ definitionItem, idx }: IDefinitions) => {
+export const DefinitionItemComp = ({ definitionItem }: IDefinitions) => {
 	const { definition, example, synonyms, antonyms } = definitionItem;
 	return (
-		<li key={idx}>
+		<li>
 			{definition}
 			{example && <p>Example: {example}</p>}
 			{synonyms.length > 0 && (

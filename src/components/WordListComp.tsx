@@ -1,7 +1,7 @@
 //styles
-import { MeaningsComp } from "./MeaningsComp";
-import { PhoneticsComp } from "./PhoneticsComp";
-import styles from "./WordListComp.module.css";
+import { MeaningsComp } from './MeaningsComp';
+import { PhoneticsComp } from './PhoneticsComp';
+import styles from './WordListComp.module.css';
 
 interface IWord {
 	wordList: Word[];
@@ -19,20 +19,20 @@ export const WordListComp = ({ wordList }: IWord) => {
 			{wordList.map((wordItem, idx) => (
 				<div
 					key={idx}
-					className={styles["word-container"]}
-					data-testid="word-container"
+					className={styles['word-container']}
+					data-testid='word-container'
 				>
 					<p>
-						Word:{" "}
+						Word:{' '}
 						<b>
 							{wordItem.word} {wordItem.phonetic}
 						</b>
 					</p>
 					{wordItem.phonetics.length > 0 && (
-						<div className={styles["phonetics-container"]}>
+						<div className={styles['phonetics-container']}>
 							<p>Listen: </p>
 							{wordItem.phonetics.map((phoneticItem, idx) => {
-								if (phoneticItem.audio !== "") {
+								if (phoneticItem.audio !== '') {
 									return (
 										<PhoneticsComp
 											phonetic={phoneticItem}
@@ -50,15 +50,15 @@ export const WordListComp = ({ wordList }: IWord) => {
 						<MeaningsComp meaning={meaning} key={idx} />
 					))}
 					<p>
-						License:{" "}
+						License:{' '}
 						<a href={wordItem.license.url}>
 							{wordItem.license.name}
 						</a>
 					</p>
 					{wordItem.sourceUrls.map((source, idx) => (
 						<p key={idx}>
-							Source:{" "}
-							<a href={source} target="_blank">
+							Source:{' '}
+							<a href={source} target='_blank'>
 								{source}
 							</a>
 						</p>
