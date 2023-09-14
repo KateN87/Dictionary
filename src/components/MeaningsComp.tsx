@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PiCaretCircleDown, PiCaretCircleUp } from "react-icons/pi";
 import styles from "./MeaningsComp.module.css";
-import { MeaningsListComp } from "./MeaningsListComp";
+import { DefinitionItemComp } from "./DefinitionItemComp";
 
 /**
  * Render prop meaning
@@ -54,14 +54,14 @@ export const MeaningsComp = ({ meaning }: IMeaning) => {
 				{meaning.definitions?.map((definitionItem, idx) => {
 					if (idx === 0) {
 						return (
-							<MeaningsListComp
+							<DefinitionItemComp
 								definitionItem={definitionItem}
 								idx={idx}
 							/>
 						);
 					} else if (showMore) {
 						return (
-							<MeaningsListComp
+							<DefinitionItemComp
 								definitionItem={definitionItem}
 								idx={idx}
 							/>

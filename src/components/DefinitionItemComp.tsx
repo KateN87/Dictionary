@@ -8,7 +8,7 @@ interface IDefinitions {
 	idx: number;
 }
 
-export const MeaningsListComp = ({ definitionItem, idx }: IDefinitions) => {
+export const DefinitionItemComp = ({ definitionItem, idx }: IDefinitions) => {
 	const { definition, example, synonyms, antonyms } = definitionItem;
 	return (
 		<li key={idx}>
