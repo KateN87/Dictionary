@@ -1,12 +1,4 @@
-import {
-	describe,
-	it,
-	expect,
-	beforeEach,
-	beforeAll,
-	afterAll,
-	vi,
-} from "vitest";
+import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { setupServer } from "msw/node";
@@ -42,40 +34,36 @@ beforeAll(() => server.listen());
 afterAll(() => server.close());
 
 describe("Shows on load", () => {
-	//Renders app before each test
-	beforeEach(() => {
-		render(<App />);
-	});
-
 	it("should show My Dictionary", () => {
+		render(<App />);
 		expect(screen.getByText("My Dictionary")).toBeInTheDocument();
 	});
 
 	it("should show sun icon", () => {
+		render(<App />);
 		const sunIcon = screen.getByLabelText("sun-icon");
 
 		expect(sunIcon).toBeInTheDocument();
 	});
 
 	it("app should have 'light' in its class-list, but not 'dark'", () => {
+		render(<App />);
 		const divEl = screen.getByTestId("app-div");
 		expect(divEl).toHaveClass("light");
 		expect(divEl).not.toHaveClass("dark");
 	});
 
 	it("should show searchbar w. placeholder", () => {
+		render(<App />);
 		const placeHolderText = screen.getByPlaceholderText("Search a word...");
 		expect(placeHolderText).toBeInTheDocument();
 	});
 });
 
 describe("theme-toggle", () => {
-	beforeEach(() => {
-		render(<App />);
-	});
-
 	it("should show moon icon and remove sun-icon when sun-icon is clicked", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const sunIcon = screen.getByLabelText("sun-icon");
 
 		await user.click(sunIcon);
@@ -87,6 +75,7 @@ describe("theme-toggle", () => {
 
 	it("should show sun icon and remove moon-icon when moon-icon is clicked", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const sunIcon = screen.getByLabelText("sun-icon");
 		await user.click(sunIcon);
 
@@ -102,6 +91,7 @@ describe("theme-toggle", () => {
 
 	it("app should have 'dark' in its class-list after sun-icon is clicked", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const sunIcon = screen.getByLabelText("sun-icon");
 
 		await user.click(sunIcon);
@@ -112,17 +102,15 @@ describe("theme-toggle", () => {
 });
 
 describe("Search features", () => {
-	beforeEach(() => {
-		render(<App />);
-	});
-
 	it("should not show 'Searched Word' when wordList.length === 0 ", () => {
+		render(<App />);
 		const searchedWord = screen.queryByText("Searched Word");
 		expect(searchedWord).toBeNull();
 	});
 
 	it("Shuld show typed word", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -132,6 +120,7 @@ describe("Search features", () => {
 
 	it("should show 'Searched Word: house' when house is submitted", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -148,6 +137,7 @@ describe("Search features", () => {
 
 	it("should show 'Sorry, we couldn`t find the word you searched for' when 'abc' is submitted", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "abc123");
 
@@ -163,6 +153,7 @@ describe("Search features", () => {
 
 	it("should show 'Something went wrong' when 'dgfgdsd' is submitted", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "dgfgdsd");
 
@@ -176,6 +167,7 @@ describe("Search features", () => {
 
 	it("error message should disappear when 'house' is searched", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "abc123");
 
@@ -186,8 +178,11 @@ describe("Search features", () => {
 			"Sorry, we couldn`t find the word you searched for"
 		);
 		expect(errorText).toBeInTheDocument();
+		await user.type(
+			searchBar,
+			"{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}house"
+		);
 
-		await user.type(searchBar, "house");
 		await user.click(submitButton);
 
 		expect(errorText).not.toBeInTheDocument();
@@ -195,6 +190,7 @@ describe("Search features", () => {
 
 	it("searchbar value should be empty when you`ve clicked submit and a word is ok", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -206,11 +202,8 @@ describe("Search features", () => {
 });
 
 describe("MyWords functions", () => {
-	beforeEach(() => {
-		render(<App />);
-	});
-
 	it("should not have words in myWordList", () => {
+		render(<App />);
 		const myWordsDiv = screen.getByTestId("my-words-list");
 		expect(myWordsDiv).toBeInTheDocument();
 		const wordsList = within(myWordsDiv).getByRole("list");
@@ -221,6 +214,7 @@ describe("MyWords functions", () => {
 
 	it("Should show icon save when 'house' is not in myWords", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -228,12 +222,13 @@ describe("MyWords functions", () => {
 		await user.click(submitButton);
 
 		const saveIcon = screen.getByLabelText("save");
-		screen.debug();
+
 		expect(saveIcon).toBeInTheDocument();
 	});
 
 	it("Should have one word in myWordsList when save is clicked", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -260,6 +255,7 @@ describe("MyWords functions", () => {
 
 	it("Should show icon check when 'house 'is in myWords", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -276,6 +272,7 @@ describe("MyWords functions", () => {
 
 	it("myWordList should be shorter when delete icon is clicked", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -304,12 +301,9 @@ describe("MyWords functions", () => {
 });
 
 describe("Main word container", () => {
-	beforeEach(() => {
-		render(<App />);
-	});
-
 	it("shows all info", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -358,6 +352,7 @@ describe("Main word container", () => {
 
 	it("should show 'source' on hover and remove on unhover", async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -380,6 +375,7 @@ describe("Main word container", () => {
 
 	it('Definition-list should show one def when "show more" is visible', async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -397,6 +393,7 @@ describe("Main word container", () => {
 
 	it('Definition-list should show more than one def when "show less" is visible', async () => {
 		const user = userEvent.setup();
+		render(<App />);
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -425,13 +422,7 @@ describe("Main word container", () => {
 });
 
 it("should play sound when clicked", async () => {
-	/* vi.spyOn(global.Audio, 'play') */
-	/* const mockPlay = vi.fn(); */
 	const audioSpy = vi.spyOn(global, "Audio");
-
-	/* global.Audio = vi.fn().mockImplementation(() => ({
-		play: mockPlay,
-	})); */
 
 	render(<App />);
 
@@ -446,5 +437,4 @@ it("should play sound when clicked", async () => {
 	await user.click(soundIconList[0]);
 
 	expect(audioSpy).toHaveBeenCalled();
-	/* expect(iconEl[0]).toBeInTheDocument(); */
 });
