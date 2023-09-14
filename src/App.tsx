@@ -36,6 +36,7 @@ function App() {
 			}
 		} catch (err) {
 			if (err instanceof Error) {
+				//Change default error message to "Something went wrong"
 				if (err.message === "Failed to fetch") {
 					err.message = "Something went wrong";
 				}
@@ -44,6 +45,7 @@ function App() {
 		}
 	};
 
+	//Check if found word is already in myWords-list
 	useEffect(() => {
 		const maybeExists = myWords.find((word) => word[0].word === foundWord);
 
@@ -54,7 +56,7 @@ function App() {
 		}
 	}, [myWords, foundWord]);
 
-	const handleClick = () => {
+	const handleThemeClick = () => {
 		if (theme === "light") {
 			setTheme("dark");
 		} else {
@@ -67,16 +69,17 @@ function App() {
 	};
 
 	return (
+		//Theme-toggle
 		<div className={`app ${theme}`} data-testid="app-div">
 			{theme === "light" ? (
 				<FaSun
-					onClick={handleClick}
+					onClick={handleThemeClick}
 					className="theme-toggle sun"
 					aria-label="sun-icon"
 				/>
 			) : (
 				<FaMoon
-					onClick={handleClick}
+					onClick={handleThemeClick}
 					className="theme-toggle moon"
 					aria-label="moon-icon"
 				/>
