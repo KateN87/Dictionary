@@ -4,12 +4,12 @@ import styles from "./MeaningsComp.module.css";
 import { DefinitionItemComp } from "./DefinitionItemComp";
 
 /**
- * Render prop meaning
- * Shows "show More" if there are more than one definition
- * Always displays the first definition
- * Displays more definitions when "show more" is clicked, if more than one definition
- * Displays first definition when show less is clicked
- * Shows MeaningsList comp
+ * - Render prop meaning
+ * - Shows "show More" if there are more than one definition
+ * - Always displays the first definition
+ * - Displays more definitions when "show more" is clicked, if more than one definition
+ * - Displays first definition when show less is clicked
+ * - Shows MeaningsList comp
  */
 
 interface IMeaning {

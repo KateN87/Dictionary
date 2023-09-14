@@ -8,10 +8,10 @@ interface IPhonetic {
 }
 
 /**
- * gets a phonetic item in props
- * renders the phonetic text and sound icon
- * render info about the phonetic on hover
- * playAudio when sound icon is clicked
+ * - gets a phonetic item in props.
+ * - renders the phonetic text and sound icon.
+ * - render info about the phonetic on hover.
+ * - playAudio when sound icon is clicked.
  */
 
 export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {

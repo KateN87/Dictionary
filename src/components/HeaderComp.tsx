@@ -1,7 +1,6 @@
 import { SearchBar } from "./SearchBar";
 import book from "../assets/book-icon.png";
 
-//styles
 import styles from "./HeaderComp.module.css";
 
 interface IFunction {
@@ -9,8 +8,8 @@ interface IFunction {
 }
 
 /**
- * Displays 'My Dictionary' with a book image
- * Displays the search bar
+ * - Displays 'My Dictionary' with a book image
+ * - Displays the search bar
  */
 
 export const HeaderComp = ({ getWords }: IFunction) => {

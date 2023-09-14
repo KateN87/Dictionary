@@ -8,9 +8,9 @@ interface IWord {
 }
 
 /**
- * Renders the word from prop WordList
- * Maps through the word
- * Renders component PhoneticsComp and MeaningsComp
+ * - Renders the word from prop WordList
+ * - Maps through the word
+ * - Renders component PhoneticsComp and MeaningsComp
  */
 
 export const WordListComp = ({ wordList }: IWord) => {

@@ -6,9 +6,9 @@ interface IFunction {
 }
 
 /**
- * Input element with search function
- * uses getWords to search
- * shows error if empty string or error messages is returned frmo getWords
+ * - Input element with search function
+ * - uses getWords to search
+ * - shows error if empty string or error messages is returned frmo getWords
  */
 
 export const SearchBar = ({ getWords }: IFunction) => {
