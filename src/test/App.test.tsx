@@ -41,13 +41,14 @@ describe("Shows on load", () => {
 
 	it("should show sun icon", () => {
 		render(<App />);
-		const sunIcon = screen.getByLabelText("sun-icon");
 
+		const sunIcon = screen.getByLabelText("sun-icon");
 		expect(sunIcon).toBeInTheDocument();
 	});
 
 	it("app should have 'light' in its class-list, but not 'dark'", () => {
 		render(<App />);
+
 		const divEl = screen.getByTestId("app-div");
 		expect(divEl).toHaveClass("light");
 		expect(divEl).not.toHaveClass("dark");
@@ -55,6 +56,7 @@ describe("Shows on load", () => {
 
 	it("should show searchbar w. placeholder", () => {
 		render(<App />);
+
 		const placeHolderText = screen.getByPlaceholderText("Search a word...");
 		expect(placeHolderText).toBeInTheDocument();
 	});
@@ -64,6 +66,7 @@ describe("theme-toggle", () => {
 	it("should show moon icon and remove sun-icon when sun-icon is clicked", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const sunIcon = screen.getByLabelText("sun-icon");
 
 		await user.click(sunIcon);
@@ -76,6 +79,7 @@ describe("theme-toggle", () => {
 	it("should show sun icon and remove moon-icon when moon-icon is clicked", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const sunIcon = screen.getByLabelText("sun-icon");
 		await user.click(sunIcon);
 
@@ -92,6 +96,7 @@ describe("theme-toggle", () => {
 	it("app should have 'dark' in its class-list after sun-icon is clicked", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const sunIcon = screen.getByLabelText("sun-icon");
 
 		await user.click(sunIcon);
@@ -104,6 +109,7 @@ describe("theme-toggle", () => {
 describe("Search features", () => {
 	it("should not show 'Searched Word' when wordList.length === 0 ", () => {
 		render(<App />);
+
 		const searchedWord = screen.queryByText("Searched Word");
 		expect(searchedWord).toBeNull();
 	});
@@ -111,6 +117,7 @@ describe("Search features", () => {
 	it("Shuld show typed word", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -121,6 +128,7 @@ describe("Search features", () => {
 	it("should show 'Searched Word: house' when house is submitted", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -131,13 +139,13 @@ describe("Search features", () => {
 		const word = await within(searchedWord).findByText("house", {
 			exact: false,
 		});
-
 		expect(word).toBeInTheDocument();
 	});
 
 	it("should show 'Sorry, we couldn`t find the word you searched for' when 'abc' is submitted", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "abc123");
 
@@ -154,6 +162,7 @@ describe("Search features", () => {
 	it("should show 'Something went wrong' when 'dgfgdsd' is submitted", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "dgfgdsd");
 
@@ -168,6 +177,7 @@ describe("Search features", () => {
 	it("error message should disappear when 'house' is searched", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "abc123");
 
@@ -178,6 +188,7 @@ describe("Search features", () => {
 			"Sorry, we couldn`t find the word you searched for"
 		);
 		expect(errorText).toBeInTheDocument();
+
 		await user.type(
 			searchBar,
 			"{backspace}{backspace}{backspace}{backspace}{backspace}{backspace}house"
@@ -191,6 +202,7 @@ describe("Search features", () => {
 	it("searchbar value should be empty when you`ve clicked submit and a word is ok", async () => {
 		const user = userEvent.setup();
 		render(<App />);
+
 		const searchBar = screen.getByPlaceholderText("Search a word...");
 		await user.type(searchBar, "house");
 
@@ -206,8 +218,10 @@ describe("MyWords functions", () => {
 		render(<App />);
 		const myWordsDiv = screen.getByTestId("my-words-list");
 		expect(myWordsDiv).toBeInTheDocument();
+
 		const wordsList = within(myWordsDiv).getByRole("list");
 		expect(wordsList).toBeInTheDocument();
+
 		const wordsListItem = within(wordsList).queryByRole("list-item");
 		expect(wordsListItem).toBeNull();
 	});
@@ -239,9 +253,7 @@ describe("MyWords functions", () => {
 		await user.click(saveIcon);
 
 		const myWordsDiv = screen.getByTestId("my-words-list");
-
 		const wordsList = within(myWordsDiv).getByRole("list");
-
 		const wordsListItem = within(wordsList).getAllByRole("listitem");
 
 		expect(wordsListItem.length).toBe(1);
@@ -283,11 +295,8 @@ describe("MyWords functions", () => {
 		await user.click(saveIcon);
 
 		const myWordsDiv = screen.getByTestId("my-words-list");
-
 		const wordsList = within(myWordsDiv).getByRole("list");
-
 		const wordsListItem = within(wordsList).getAllByRole("listitem");
-
 		const deleteIcon = within(wordsListItem[0]).getByLabelText(
 			"delete-icon"
 		);
@@ -311,7 +320,6 @@ describe("Main word container", () => {
 		await user.click(submitButton);
 
 		const wordContainer = screen.getAllByTestId("word-container");
-
 		expect(wordContainer.length).toBe(3);
 
 		const wordTitleWord = within(wordContainer[0]).getByText("Word:");
@@ -360,7 +368,6 @@ describe("Main word container", () => {
 		await user.click(submitButton);
 
 		const phoneticsContainer = screen.getAllByLabelText("sound-icon");
-
 		await user.hover(phoneticsContainer[0]);
 
 		const license = screen.getByText("source");
@@ -401,11 +408,9 @@ describe("Main word container", () => {
 		await user.click(submitButton);
 
 		const wordContainer = screen.getAllByTestId("word-container");
-
 		const showMore = within(wordContainer[0]).getByText("Show more", {
 			exact: false,
 		});
-
 		await user.click(showMore);
 
 		const showLess = within(wordContainer[0]).getByText("Show less", {

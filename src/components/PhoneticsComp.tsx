@@ -7,6 +7,13 @@ interface IPhonetic {
 	idx: number;
 }
 
+/**
+ * gets a phonetic item in props
+ * renders the phonetic text and sound icon
+ * render info about the phonetic on hover
+ * playAudio when sound icon is clicked
+ */
+
 export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 	const [showPhonInfo, setShowPhonInfo] = useState(false);
 
@@ -31,7 +38,7 @@ export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 				onClick={() => playAudio(phonetic.audio)}
 				aria-label="sound-icon"
 			/>
-
+			{/* only shows when hover on parent div */}
 			{showPhonInfo && (
 				<div className={styles["phonetic-info"]}>
 					{phonetic.license?.url && (
@@ -39,6 +46,7 @@ export const PhoneticsComp = ({ phonetic, idx }: IPhonetic) => {
 							license: {phonetic.license.name}
 						</a>
 					)}
+
 					{phonetic.sourceUrl && (
 						<a href={phonetic.sourceUrl}>source</a>
 					)}

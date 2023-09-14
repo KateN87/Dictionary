@@ -5,11 +5,18 @@ interface IFunction {
 	getWords: (sWord: string) => Promise<string | boolean | undefined>;
 }
 
+/**
+ * Input element with search function
+ * uses getWords to search
+ * shows error if empty string or error messages is returned frmo getWords
+ */
+
 export const SearchBar = ({ getWords }: IFunction) => {
 	const [searchWord, setSearchWord] = useState("");
 	const [error, setError] = useState("");
 
-	const trySearch = async () => {
+	const handleTrySearch = async () => {
+		//Reset error-message
 		setError("");
 
 		if (searchWord === "") {
@@ -17,8 +24,10 @@ export const SearchBar = ({ getWords }: IFunction) => {
 		}
 
 		const resp = await getWords(searchWord);
+		//getWords() return a string if there is a error
 		if (typeof resp === "string") {
 			setError(resp);
+			//getWords() return true if a response with word was fetched
 		} else if (resp === true) {
 			setSearchWord("");
 		}
@@ -39,9 +48,10 @@ export const SearchBar = ({ getWords }: IFunction) => {
 					className={styles["submit-btn"]}
 					type="submit"
 					value="Submit"
-					onClick={trySearch}
+					onClick={handleTrySearch}
 				/>
 			</div>
+			{/* shows error if there is one */}
 			{error && (
 				<div className={styles["error-container"]}>
 					<p className={styles["error-text"]}>{error}</p>

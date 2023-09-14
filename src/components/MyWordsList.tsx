@@ -3,6 +3,14 @@ import { IoTrash } from "react-icons/io5";
 //styles
 import styles from "./MyWordsList.module.css";
 
+/**
+ * uses setMyWords, myWords, setWordList, setFoundWord
+ * renders a list with myWords
+ * when word is clicked setWordList is updated with that word
+ * when trashcan is clicked the word will be deleted from the list with setMyWords
+ * when word is clicked SetFoundWord is updated with that word
+ */
+
 interface IMyList {
 	setMyWords: Dispatch<SetStateAction<Word[][]>>;
 	myWords: Word[][];

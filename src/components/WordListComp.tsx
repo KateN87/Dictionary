@@ -7,10 +7,16 @@ interface IWord {
 	wordList: Word[];
 }
 
+/**
+ * Renders the word from prop WordList
+ * Maps through the word
+ * Renders component PhoneticsComp and MeaningsComp
+ */
+
 export const WordListComp = ({ wordList }: IWord) => {
 	return (
 		<div>
-			{wordList.map((w, idx) => (
+			{wordList.map((wordItem, idx) => (
 				<div
 					key={idx}
 					className={styles["word-container"]}
@@ -19,17 +25,17 @@ export const WordListComp = ({ wordList }: IWord) => {
 					<p>
 						Word:{" "}
 						<b>
-							{w.word} {w.phonetic}
+							{wordItem.word} {wordItem.phonetic}
 						</b>
 					</p>
-					{w.phonetics.length > 0 && (
+					{wordItem.phonetics.length > 0 && (
 						<div className={styles["phonetics-container"]}>
 							<p>Listen: </p>
-							{w.phonetics.map((p, idx) => {
-								if (p.audio !== "") {
+							{wordItem.phonetics.map((phoneticItem, idx) => {
+								if (phoneticItem.audio !== "") {
 									return (
 										<PhoneticsComp
-											phonetic={p}
+											phonetic={phoneticItem}
 											idx={idx}
 											key={idx}
 										/>
@@ -39,18 +45,21 @@ export const WordListComp = ({ wordList }: IWord) => {
 						</div>
 					)}
 
-					{w.origin && <p>origin: {w.origin}</p>}
-					{w.meanings?.map((meaning, idx) => (
+					{wordItem.origin && <p>origin: {wordItem.origin}</p>}
+					{wordItem.meanings?.map((meaning, idx) => (
 						<MeaningsComp meaning={meaning} key={idx} />
 					))}
 					<p>
-						License: <a href={w.license.url}>{w.license.name}</a>
+						License:{" "}
+						<a href={wordItem.license.url}>
+							{wordItem.license.name}
+						</a>
 					</p>
-					{w.sourceUrls.map((s, idx) => (
+					{wordItem.sourceUrls.map((source, idx) => (
 						<p key={idx}>
 							Source:{" "}
-							<a href={s} target="_blank">
-								{s}
+							<a href={source} target="_blank">
+								{source}
 							</a>
 						</p>
 					))}
