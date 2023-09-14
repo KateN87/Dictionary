@@ -9,8 +9,8 @@ interface IFunction {
 }
 
 /**
- * Shows 'My Dictionary' with a book image
- * Shows the search bar component
+ * Displays 'My Dictionary' with a book image
+ * Displays the search bar
  */
 
 export const HeaderComp = ({ getWords }: IFunction) => {

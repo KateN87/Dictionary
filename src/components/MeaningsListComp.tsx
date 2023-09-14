@@ -1,6 +1,6 @@
 /**
  * Gets one definition from prop definitionItem
- * Maps through synonyms and antonyms and returns ul
+ * Displays synonyms and antonyms in lists
  */
 
 interface IDefinitions {

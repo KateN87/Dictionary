@@ -5,9 +5,10 @@ import { MeaningsListComp } from "./MeaningsListComp";
 
 /**
  * Render prop meaning
- * Shows "show More" if there are more than one definition in meaning.definitions
- * Always shows the first definition in meaning.definitions
- * If more than one definition, it shows more definitions when show more is clicked, and shows less if then show less is clicked
+ * Shows "show More" if there are more than one definition
+ * Always displays the first definition
+ * Displays more definitions when "show more" is clicked, if more than one definition
+ * Displays first definition when show less is clicked
  * Shows MeaningsList comp
  */
 
